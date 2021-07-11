@@ -15,10 +15,12 @@ const ScreenContainerComponent = props => {
     Color: isDarkMode ? Colors.darker : Colors.light,
   };
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {props.children}
-    </SafeAreaView>
+    <>
+      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
+      <SafeAreaView style={backgroundStyle}>
+        <View style={{height: '100%'}}>{props.children}</View>
+      </SafeAreaView>
+    </>
   );
 };
 
