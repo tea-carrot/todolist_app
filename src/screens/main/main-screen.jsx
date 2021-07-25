@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
+  Button,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -32,7 +33,7 @@ const MainScreen = () => {
   const dummyTodos = [
     {
       id: 1,
-      imoji: '🍴',
+      emoji: '🍴',
       title: '점심 메뉴 정하기',
       date: '07-01',
       time: '12:00',
@@ -40,7 +41,7 @@ const MainScreen = () => {
     },
     {
       id: 2,
-      imoji: '🍨',
+      emoji: '🍨',
       title: '점심 메뉴 정하기',
       date: '07-01',
       time: '12:00',
@@ -48,7 +49,7 @@ const MainScreen = () => {
     },
     {
       id: 3,
-      imoji: '🍙',
+      emoji: '🍙',
       title: '점심 메뉴 정하기',
       date: '07-01',
       time: '12:00',
@@ -65,7 +66,7 @@ const MainScreen = () => {
   };
 
   const RenderItem = ({item}) => {
-    const {title, imoji, date, time, description} = item;
+    const {title, emoji, date, time, description} = item;
     return (
       <View
         style={{
@@ -87,7 +88,7 @@ const MainScreen = () => {
               fontSize: 150,
               textAlign: 'center',
             }}>
-            {imoji}
+            {emoji}
           </Text>
           <Text style={styles.titleText}>{title}</Text>
           <Text style={styles.dateTimeText}>
@@ -128,8 +129,10 @@ const MainScreen = () => {
             data={dummyTodos}
             horizontal={true}
             renderItem={({item}) => <RenderItem item={item} />}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
+        <Button title="Add" onPress={() => navigation.navigate('Add')} />
       </ScrollView>
     </ScreenContainerComponent>
   );

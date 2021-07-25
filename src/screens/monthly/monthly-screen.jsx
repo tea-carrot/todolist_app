@@ -12,7 +12,7 @@ const MonthlyScreen = () => {
   };
   const handleHeaderRight = () => {
     navigation.navigate('Main');
-  };
+  }; 
   return (
     <ScreenContainerComponent>
       {/* Drawer Header */}

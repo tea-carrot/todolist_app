@@ -4,6 +4,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import MainTabNavigator from './navigations/main/main-tab-navigator';
+import RootNavigator from './navigations/root/drawer-navigator';
+import AddScreen from './screens/add/add-screen';
 import MainScreen from './screens/main/main-screen';
 import MonthlyScreen from './screens/monthly/monthly-screen';
 
@@ -14,17 +17,9 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <RootNavigator /> */}
-      <Drawer.Navigator>
-        <Drawer.Screen name="MainTabNavigator">
-          {() => (
-            <Tab.Navigator screenOptions={{tabBarVisible: false}}>
-              <Tab.Screen name="Main" component={MainScreen} />
-              <Tab.Screen name="Monthly" component={MonthlyScreen} />
-            </Tab.Navigator>
-          )}
-        </Drawer.Screen>
-      </Drawer.Navigator>
+      <RootNavigator>
+        <MainTabNavigator />
+      </RootNavigator>
     </NavigationContainer>
   );
 };
