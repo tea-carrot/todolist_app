@@ -7,4 +7,5 @@ export const FontSizeStyle = {
   fontSize22: 22,
   fontSize24: 24,
   fontSize28: 28,
+  fontSize40: 40,
 };

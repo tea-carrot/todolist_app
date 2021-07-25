@@ -1,4 +1,5 @@
 export const MarginStyle = {
+  margin5: 2,
   margin5: 5,
   margin8: 8,
   margin10: 10,

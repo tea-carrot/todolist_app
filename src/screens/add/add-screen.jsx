@@ -1,19 +1,28 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {Icon, Overlay} from 'react-native-elements';
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import {Overlay} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {IconVector} from '../../assets/icons/icon-vector';
 import ButtonIconComponent from '../../components/button/button-icon';
 import ButtonFooterComponent from '../../components/button/buttonFooter';
+import CategoryListComponent from '../../components/category/category-list';
+import CategoryListSeletedComponent from '../../components/category/category-list-seleted';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import ContentHeaderComponent from '../../components/content/header-content';
 import HeaderComponent from '../../components/header/header';
 import IconBasicComponent from '../../components/icon/icon-basic';
 import {ColorStyle} from '../../config/color';
-import {MarginStyle} from '../../config/dimens';
+import {MarginStyle, PaddingStyle} from '../../config/dimens';
 import {FontSizeStyle} from '../../config/font-size';
+import {dummyCategoryList} from '../../dummy/dummy-category';
 import {getDateTime} from '../../utils/common';
 
 const AddScreen = () => {
@@ -22,8 +31,11 @@ const AddScreen = () => {
   const [emoji, setEmoji] = useState(null);
   const [title, setTitle] = useState(null);
   const [date, setDate] = useState(null);
-  const [category, setCategory] = useState(null);
+
+  // Category
+  const [categories, setCategories] = useState(null);
   const [categoryDialog, setCategoryDialog] = useState(null);
+  const [seletedCategoryItem, setSeletedCategoryItem] = useState(null);
 
   const [isEdit, setIsEdit] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
@@ -47,6 +59,7 @@ const AddScreen = () => {
 
   // handle Info
   const handleTitleChange = value => {
+    console.log(value);
     setTitle(value);
   };
   const handleDateChange = value => {
@@ -60,8 +73,10 @@ const AddScreen = () => {
   const handleCategoryDialogHide = () => {
     setCategoryDialog(false);
   };
-  const handleCategoryDialogPositive = () => {
+  const handleCategoryDialogPositive = value => {
+    console.log('mobx 적용?', value);
     handleCategoryDialogHide();
+    setCategories(value);
   };
   const handleCategoryDialogNegative = () => {
     handleCategoryDialogHide();
@@ -81,14 +96,20 @@ const AddScreen = () => {
     // );
     setEmoji(value);
   };
+
   return (
     <ScreenContainerComponent>
       {/* Dialog */}
       <Overlay
+        style={{borderRadius: 24}}
         isVisible={categoryDialog}
         onBackdropPress={handleCategoryDialogNegative}>
-        <Text>Category List</Text>
+        <CategoryListSeletedComponent
+          categories={categories}
+          handleCategorySelected={handleCategoryDialogPositive}
+        />
       </Overlay>
+
       {/* Drawer Header */}
       <HeaderComponent
         leftIconCustom={IconVector.arrowBack}
@@ -147,10 +168,30 @@ const AddScreen = () => {
           maxLength={20}
         />
 
+        {/* Category */}
         <ContentHeaderComponent title={'Category'}>
-          <ButtonIconComponent
-            onPress={handleCategoryDialogShow}
-            iconSet={IconVector.plus}
+          <FlatList
+            style={styles.categoryView}
+            contentContainerStyle={styles.categoryContentView}
+            horizontal={true}
+            data={categories}
+            renderItem={({item}) => (
+              <Text
+                style={{
+                  marginHorizontal: MarginStyle.margin5,
+                  fontSize: FontSizeStyle.fontSize40,
+                }}>
+                {item.icon}
+              </Text>
+            )}
+            ListFooterComponent={
+              <ButtonIconComponent
+                onPress={handleCategoryDialogShow}
+                iconSet={IconVector.plus}
+                iconSize={36}
+              />
+            }
+            persistentScrollbar={false}
           />
         </ContentHeaderComponent>
         <ContentHeaderComponent title={'Content'}>
@@ -207,6 +248,13 @@ const styles = StyleSheet.create({
     color: ColorStyle.colorGrayDark,
     fontSize: FontSizeStyle.fontSize18,
     fontWeight: '300',
+  },
+  // content (categories)
+  categoryView: {
+    paddingVertical: PaddingStyle.padding5,
+  },
+  categoryContentView: {
+    alignItems: 'center',
   },
   // content (description)
   contentText: {
