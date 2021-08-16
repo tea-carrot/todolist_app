@@ -1,3 +1,7 @@
+import React from 'react';
+
+export const TodoState = React.createContext(null);
+
 export const initialState = {
   todos: [
     {

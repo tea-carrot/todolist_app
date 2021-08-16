@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
 import {
-  Button,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -9,14 +8,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {TodoState} from '../../App';
 import {IconVector} from '../../assets/icons/icon-vector';
 import {icCalender, icMenu} from '../../assets/index';
 import ButtonIconComponent from '../../components/button/button-icon';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import HeaderComponent from '../../components/header/header';
 import {ColorStyle} from '../../config/color';
+import {TodoState} from '../../state/state';
 
 const MainScreen = () => {
   const navigation = useNavigation();

@@ -1,10 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
-import {reset} from 'i18n-js';
 import React, {useContext, useEffect, useState} from 'react';
 import {Alert, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {TodoState} from '../../App';
 import {IconVector} from '../../assets/icons/icon-vector';
 import ButtonIconComponent from '../../components/button/button-icon';
 import ButtonFooterComponent from '../../components/button/buttonFooter';
@@ -17,6 +15,7 @@ import {ColorStyle} from '../../config/color';
 import {MarginStyle, PaddingStyle} from '../../config/dimens';
 import {FontSizeStyle} from '../../config/font-size';
 import {TodoModel} from '../../models/todo.model';
+import {TodoState} from '../../state/state';
 import {getDateTime} from '../../utils/common';
 
 const AddScreen = () => {
