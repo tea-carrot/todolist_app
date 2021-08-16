@@ -11,5 +11,7 @@ export const TodoModel = item => {
     description: item.description, // 내용
     isImportant: item.isImportant, // 중요 여부
     isComplete: item.isComplete, // 완료 여부
+    createdAt: item.createdAt,
+    updatedAt: item.createdAt,
   };
 };

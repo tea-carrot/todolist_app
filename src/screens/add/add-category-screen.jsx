@@ -85,20 +85,24 @@ const AddCategoryScreen = () => {
         contentContainerStyle={styles.containerScrollView}>
         <View style={styles.content}>
           <View style={styles.emojiView}>
-            <IconBasicComponent
-              iconSet={IconVector.circle}
-              iconSize={206}
-              iconColor={ColorStyle.colorGrayLight}
-            />
+            {!emoji && (
+              <>
+                <IconBasicComponent
+                  iconSet={IconVector.circle}
+                  iconSize={206}
+                  iconColor={ColorStyle.colorGrayLight}
+                />
 
-            <View style={styles.emojiEmptyView}>
-              <IconBasicComponent
-                iconSet={IconVector.smile}
-                iconSize={108}
-                iconColor={ColorStyle.colorPrimaryWhite}
-              />
-              <Text style={styles.emojiEmptyText}>Add Icon</Text>
-            </View>
+                <View style={styles.emojiEmptyView}>
+                  <IconBasicComponent
+                    iconSet={IconVector.smile}
+                    iconSize={108}
+                    iconColor={ColorStyle.colorPrimaryWhite}
+                  />
+                  <Text style={styles.emojiEmptyText}>Add Icon</Text>
+                </View>
+              </>
+            )}
             <View style={styles.emojiInputView}>
               <TextInput
                 style={styles.emojiInputText}
@@ -141,11 +145,12 @@ const styles = StyleSheet.create({
   // 이모지 뷰
   emojiView: {
     width: '100%',
+    height: 200,
     marginVertical: MarginStyle.margin40,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // 이모지 비어있는 뷰
+  // 이모지 비어있는 뷰 
   emojiEmptyView: {
     position: 'absolute',
     alignItems: 'center',

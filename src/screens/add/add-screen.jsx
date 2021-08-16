@@ -150,21 +150,24 @@ const AddScreen = () => {
       <KeyboardAwareScrollView
         contentContainerStyle={styles.containerScrollView}>
         <View style={styles.emojiView}>
-          <View>
-            <IconBasicComponent
-              iconSet={IconVector.circle}
-              iconSize={206}
-              iconColor={ColorStyle.colorGrayLight}
-            />
-          </View>
-          <View style={styles.emojiEmptyView}>
-            <IconBasicComponent
-              iconSet={IconVector.smile}
-              iconSize={108}
-              iconColor={ColorStyle.colorPrimaryWhite}
-            />
-            <Text style={styles.emojiEmptyText}>Add Icon</Text>
-          </View>
+          {!emoji && (
+            <>
+              <IconBasicComponent
+                iconSet={IconVector.circle}
+                iconSize={206}
+                iconColor={ColorStyle.colorGrayLight}
+              />
+
+              <View style={styles.emojiEmptyView}>
+                <IconBasicComponent
+                  iconSet={IconVector.smile}
+                  iconSize={108}
+                  iconColor={ColorStyle.colorPrimaryWhite}
+                />
+                <Text style={styles.emojiEmptyText}>Add Icon</Text>
+              </View>
+            </>
+          )}
           <View style={styles.emojiInputView}>
             <TextInput
               style={styles.emojiInputText}

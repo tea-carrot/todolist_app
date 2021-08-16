@@ -13,6 +13,9 @@ const RootNavigator = props => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="MainTab">{() => props.children}</Drawer.Screen>
+      <Drawer.Screen name="All">
+        {() => <CategoryScreen title={'All'} />}
+      </Drawer.Screen>
       {state.categories.map(category => {
         return (
           <Drawer.Screen
