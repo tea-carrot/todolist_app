@@ -8,10 +8,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import RoundCheckbox from 'rn-round-checkbox';
 import {icCalender, icMenu} from '../../assets/index';
 import {ButtonFloatingActionComponent} from '../../components/button/button-floating';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import HeaderComponent from '../../components/header/header';
+import {ColorStyle} from '../../config/color';
+import {TodoModel} from '../../models/todo.model';
 import {TodoState} from '../../state/state';
 
 const MainScreen = () => {
@@ -19,7 +22,7 @@ const MainScreen = () => {
 
   // const [todos] = useReducer(reducer, initialState.todos);
   const todoState = useContext(TodoState);
-  const todos = todoState[0];
+  const [todos, dispatch] = todoState;
 
   const [searchText, setSearchText] = useState();
 
@@ -44,35 +47,37 @@ const MainScreen = () => {
   };
 
   const RenderItem = ({item}) => {
-    const {title, emoji, date, time, description} = item;
+    const todo = TodoModel(item);
+
+    const handleIsComplate = () => {
+      dispatch({type: 'COMPLETE_TODO', id: todo.id});
+    };
     return (
-      <View
-        style={{
-          width: 180,
-          height: '100%',
-          marginHorizontal: 15,
-        }}
-        key={item.id}>
+      <View style={styles.itemContainer} key={todo.id}>
         {/* 배경 View */}
-        <View style={{width: '100%', height: '100%', position: 'absolute'}}>
-          <View style={{height: 60}} />
-          <View style={{backgroundColor: 'white', flex: 1, borderRadius: 16}} />
+        <View style={styles.itemBackgroundView}>
+          <View style={styles.itemBackgroundViewBox} />
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.itemEmojiView}>
+          <Text style={styles.itemEmojiText}>{todo.emoji}</Text>
+          <View style={styles.itemCheckBox}>
+            <RoundCheckbox
+              size={24}
+              checked={todo.isComplete}
+              onValueChange={handleIsComplate}
+            />
+          </View>
           <Text
-            style={{
-              width: '100%',
-              height: 150,
-              fontSize: 150,
-              textAlign: 'center',
-            }}>
-            {emoji}
+            style={[
+              styles.titleText,
+              todo.isComplete && {textDecorationLine: 'line-through'},
+            ]}>
+            {todo.title}
           </Text>
-          <Text style={styles.titleText}>{title}</Text>
           <Text style={styles.dateTimeText}>
-            {date} {time}
+            {todo.date} {todo.time}
           </Text>
-          <Text style={styles.descriptionText}>{description}</Text>
+          <Text style={styles.descriptionText}>{todo.description}</Text>
         </View>
       </View>
     );
@@ -111,7 +116,7 @@ const MainScreen = () => {
               onChangeText={handleSearchText}
               value={searchText}
               placeholder="Search"
-              placeholderTextColor={'#888888'}
+              placeholderTextColor={ColorStyle.colorGrayDark}
             />
             <ListHeaderComponent />
             <FlatList
@@ -159,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 
-  // FaltList Style
+  // FlatList Style
   listView: {
     height: 350,
     width: '100%',
@@ -183,5 +188,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: '#9f9f9f',
     fontSize: 15,
+  },
+
+  // RenderItem Style
+  itemContainer: {
+    width: 180,
+    height: '100%',
+    marginHorizontal: 15,
+  },
+  itemBackgroundView: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  itemBackgroundViewBox: {
+    marginTop: 60,
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 16,
+  },
+  itemCheckBox: {
+    marginVertical: 5,
+  },
+  itemEmojiView: {alignItems: 'center'},
+  itemEmojiText: {
+    width: '100%',
+    height: 150,
+    fontSize: 150,
+    textAlign: 'center',
   },
 });

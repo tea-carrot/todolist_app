@@ -8,6 +8,6 @@ export const TodoModel = item => {
     time: item.time, // 시간
     description: item.description, // 내용
     isImportant: item.isImportant, // 중요 여부
-    isEnd: item.isEnd, // 완료 여부
+    isComplete: item.isComplete, // 완료 여부
   };
 };

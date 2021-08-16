@@ -13,7 +13,7 @@ export const initialState = {
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
       isImportant: false,
-      isEnd: false,
+      isComplete: false,
     },
     {
       id: 1,
@@ -24,7 +24,7 @@ export const initialState = {
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
       isImportant: true,
-      isEnd: false,
+      isComplete: true,
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ export const initialState = {
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
       isImportant: true,
-      isEnd: false,
+      isComplete: false,
     },
   ],
 };
