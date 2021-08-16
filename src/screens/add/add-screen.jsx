@@ -73,7 +73,6 @@ const AddScreen = () => {
     setCategoryDialog(false);
   };
   const handleCategoryDialogPositive = value => {
-    console.log('mobx 적용?', value);
     handleCategoryDialogHide();
     setCategories(value);
   };
@@ -134,7 +133,7 @@ const AddScreen = () => {
         isVisible={categoryDialog}
         onBackdropPress={handleCategoryDialogNegative}>
         <CategoryListSeletedComponent
-          categories={categories}
+          seletedCategories={categories}
           handleCategorySelected={handleCategoryDialogPositive}
         />
       </Overlay>
@@ -210,7 +209,7 @@ const AddScreen = () => {
                   marginHorizontal: MarginStyle.margin5,
                   fontSize: FontSizeStyle.fontSize40,
                 }}>
-                {item.icon}
+                {item.emoji}
               </Text>
             )}
             ListFooterComponent={

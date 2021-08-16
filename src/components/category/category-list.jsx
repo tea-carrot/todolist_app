@@ -23,7 +23,7 @@ const RenderItem = props => {
     <TouchableOpacity
       style={[styles.renderItemView, isSelected && styles.renderItemSelectView]}
       onPress={handleIsSelected}>
-      <Text style={styles.icon}>{item.icon}</Text>
+      <Text style={styles.icon}>{item.emoji}</Text>
     </TouchableOpacity>
   );
 };

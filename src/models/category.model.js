@@ -5,3 +5,8 @@ export const CategoryModel = item => {
     title: item.title,
   };
 };
+export const CategoryModels = items => {
+  return items.map(item => {
+    return CategoryModel(item);
+  });
+};

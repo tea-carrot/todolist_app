@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {dummyCategoryList} from '../../dummy/dummy-category';
+import {TodoState} from '../../state/state';
 import ButtonFooterComponent from '../button/buttonFooter';
 import ContentHeaderComponent from '../content/header-content';
 import CategoryListComponent from './category-list';
 
 const CategoryListSeletedComponent = props => {
-  const {categories, handleCategorySelected} = props;
+  const {seletedCategories, handleCategorySelected} = props;
+
+  const todoState = useContext(TodoState);
+  const [state, dispatch] = todoState;
+
   const [checkItems, setCheckItems] = useState([]);
 
-  const [categoryList, setCategoryList] = useState(dummyCategoryList);
+  const [categories, setCategories] = useState(state.categories);
 
   // 카테고리 선택
   const handleCheckItem = async (value, isChecked) => {
@@ -34,7 +39,7 @@ const CategoryListSeletedComponent = props => {
         }}>
         <ContentHeaderComponent title={'All'}>
           <CategoryListComponent
-            listData={categoryList}
+            listData={categories}
             onPress={handleCheckItem}
           />
         </ContentHeaderComponent>
