@@ -8,12 +8,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {IconVector} from '../../assets/icons/icon-vector';
 import {icCalender, icMenu} from '../../assets/index';
-import ButtonIconComponent from '../../components/button/button-icon';
+import {ButtonFloatingActionComponent} from '../../components/button/button-floating';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import HeaderComponent from '../../components/header/header';
-import {ColorStyle} from '../../config/color';
 import {TodoState} from '../../state/state';
 
 const MainScreen = () => {
@@ -126,15 +124,10 @@ const MainScreen = () => {
             />
           </View>
         </ScrollView>
-        <ButtonIconComponent
-          iconSet={IconVector.plus}
-          iconSize={48}
-          iconColor={ColorStyle.colorPrimaryWhite}
-          bgColor={ColorStyle.colorGrayLight}
-          bgShape={'circle'}
-          onPress={() => navigation.navigate('Add')}
-        />
       </ScreenContainerComponent>
+      <ButtonFloatingActionComponent
+        onPress={name => navigation.navigate(name)}
+      />
     </>
   );
 };
