@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Button,
   FlatList,
@@ -9,12 +9,21 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {TodoState} from '../../App';
+import {IconVector} from '../../assets/icons/icon-vector';
 import {icCalender, icMenu} from '../../assets/index';
+import ButtonIconComponent from '../../components/button/button-icon';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import HeaderComponent from '../../components/header/header';
+import {ColorStyle} from '../../config/color';
 
 const MainScreen = () => {
   const navigation = useNavigation();
+
+  // const [todos] = useReducer(reducer, initialState.todos);
+  const todoState = useContext(TodoState);
+  const todos = todoState[0];
 
   const [searchText, setSearchText] = useState();
 
@@ -29,33 +38,6 @@ const MainScreen = () => {
     console.log('OK:', value);
     setSearchText(value);
   };
-
-  const dummyTodos = [
-    {
-      id: 1,
-      emoji: '🍴',
-      title: '점심 메뉴 정하기',
-      date: '07-01',
-      time: '12:00',
-      description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-    },
-    {
-      id: 2,
-      emoji: '🍨',
-      title: '점심 메뉴 정하기',
-      date: '07-01',
-      time: '12:00',
-      description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-    },
-    {
-      id: 3,
-      emoji: '🍙',
-      title: '점심 메뉴 정하기',
-      date: '07-01',
-      time: '12:00',
-      description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-    },
-  ];
 
   const ListHeaderComponent = () => {
     return (
@@ -101,40 +83,61 @@ const MainScreen = () => {
   };
 
   return (
-    <ScreenContainerComponent>
-      {/* Drawer Header */}
-      <HeaderComponent
-        leftIcon={icMenu}
-        leftOnPress={handleHeaderLeft}
-        rightIcon={icCalender}
-        rightOnPress={handleHeaderRight}
-      />
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.titleView}>
-          <Text style={styles.titleTextFirst}>Recent</Text>
-          <Text style={styles.titleTextSecond}>TaskList</Text>
-        </View>
-        <View>
-          <TextInput
-            style={styles.searchInput}
-            onChangeText={handleSearchText}
-            value={searchText}
-            placeholder="Search"
-            placeholderTextColor={'#888888'}
-          />
-          <ListHeaderComponent />
-          <FlatList
-            style={styles.listView}
-            contentContainerStyle={styles.listContentContainerStyle}
-            data={dummyTodos}
-            horizontal={true}
-            renderItem={({item}) => <RenderItem item={item} />}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-        <Button title="Add" onPress={() => navigation.navigate('Add')} />
-      </ScrollView>
-    </ScreenContainerComponent>
+    <>
+      <ScreenContainerComponent>
+        {/* Drawer Header */}
+        <HeaderComponent
+          leftIcon={icMenu}
+          leftOnPress={handleHeaderLeft}
+          rightIcon={icCalender}
+          rightOnPress={handleHeaderRight}
+        />
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          {/* {todos.map((value, index) => {
+          return (
+            <TouchableOpacity
+              key={index}
+              style={{backgroundColor: 'green'}}
+              onPress={() =>
+                dispatch({type: 'increment', id: todos.length + 1})
+              }>
+              <Text style={{fontSize: 24}}>count2: {value.title}</Text>
+            </TouchableOpacity>
+          );
+        })} */}
+          <View style={styles.titleView}>
+            <Text style={styles.titleTextFirst}>Recent</Text>
+            <Text style={styles.titleTextSecond}>TaskList</Text>
+          </View>
+          <View>
+            <TextInput
+              style={styles.searchInput}
+              onChangeText={handleSearchText}
+              value={searchText}
+              placeholder="Search"
+              placeholderTextColor={'#888888'}
+            />
+            <ListHeaderComponent />
+            <FlatList
+              style={styles.listView}
+              contentContainerStyle={styles.listContentContainerStyle}
+              data={todos}
+              horizontal={true}
+              renderItem={({item}) => <RenderItem item={item} />}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </ScrollView>
+        <ButtonIconComponent
+          iconSet={IconVector.plus}
+          iconSize={48}
+          iconColor={ColorStyle.colorPrimaryWhite}
+          bgColor={ColorStyle.colorGrayLight}
+          bgShape={'circle'}
+          onPress={() => navigation.navigate('Add')}
+        />
+      </ScreenContainerComponent>
+    </>
   );
 };
 

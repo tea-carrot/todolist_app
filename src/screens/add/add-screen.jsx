@@ -1,19 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {reset} from 'i18n-js';
+import React, {useContext, useEffect, useState} from 'react';
+import {Alert, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {TodoState} from '../../App';
 import {IconVector} from '../../assets/icons/icon-vector';
 import ButtonIconComponent from '../../components/button/button-icon';
 import ButtonFooterComponent from '../../components/button/buttonFooter';
-import CategoryListComponent from '../../components/category/category-list';
 import CategoryListSeletedComponent from '../../components/category/category-list-seleted';
 import ScreenContainerComponent from '../../components/container/screen-container';
 import ContentHeaderComponent from '../../components/content/header-content';
@@ -22,23 +16,27 @@ import IconBasicComponent from '../../components/icon/icon-basic';
 import {ColorStyle} from '../../config/color';
 import {MarginStyle, PaddingStyle} from '../../config/dimens';
 import {FontSizeStyle} from '../../config/font-size';
-import {dummyCategoryList} from '../../dummy/dummy-category';
+import {TodoModel} from '../../models/todo.model';
 import {getDateTime} from '../../utils/common';
 
 const AddScreen = () => {
+  const todoState = useContext(TodoState);
+  const [todos, dispatch] = todoState;
+
   const navigation = useNavigation();
 
   const [emoji, setEmoji] = useState(null);
   const [title, setTitle] = useState(null);
   const [date, setDate] = useState(null);
+  const [time, setTime] = useState(null);
+  const [description, setDescription] = useState(null);
 
   // Category
   const [categories, setCategories] = useState(null);
   const [categoryDialog, setCategoryDialog] = useState(null);
   const [seletedCategoryItem, setSeletedCategoryItem] = useState(null);
 
-  const [isEdit, setIsEdit] = useState(false);
-  const [isCheck, setIsCheck] = useState(false);
+  const [isImportant, setIsImportant] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -54,16 +52,18 @@ const AddScreen = () => {
     navigation.goBack();
   };
   const handleHeaderRight = () => {
-    setIsCheck(!isCheck);
+    setIsImportant(!isImportant);
   };
 
   // handle Info
   const handleTitleChange = value => {
-    console.log(value);
     setTitle(value);
   };
   const handleDateChange = value => {
     setDate(value);
+  };
+  const handleDescriptionChange = value => {
+    setDescription(value);
   };
 
   // Dialog
@@ -97,6 +97,44 @@ const AddScreen = () => {
     setEmoji(value);
   };
 
+  // Todo 아이템 추가 버튼
+  const handleAddTodo = () => {
+    const _todo = TodoModel({
+      id: todos.length + 1,
+      emoji: emoji,
+      title: title,
+      categories: categories,
+      date: date,
+      time: time,
+      description: description,
+    });
+    dispatch({
+      type: 'INSERT_TODO',
+      todo: {
+        id: todos.length + 1,
+        emoji: emoji,
+        title: title,
+        categories: categories,
+        date: date,
+        time: time,
+        description: description,
+      },
+    });
+    initState();
+    Alert.alert('등록되었습니다.');
+    navigation.goBack();
+  };
+
+  // 값 초기화
+  const initState = () => {
+    setEmoji(null);
+    setTitle(null);
+    setCategories(null);
+    setDate(null);
+    setTime(null);
+    setDescription(null);
+  };
+
   return (
     <ScreenContainerComponent>
       {/* Dialog */}
@@ -114,7 +152,7 @@ const AddScreen = () => {
       <HeaderComponent
         leftIconCustom={IconVector.arrowBack}
         rightIconCustom={
-          !isCheck ? IconVector.clipboardOff : IconVector.clipboardOn
+          !isImportant ? IconVector.clipboardOff : IconVector.clipboardOn
         }
         leftOnPress={handleHeaderLeft}
         rightOnPress={handleHeaderRight}
@@ -196,13 +234,15 @@ const AddScreen = () => {
         </ContentHeaderComponent>
         <ContentHeaderComponent title={'Content'}>
           <TextInput
+            value={description}
+            onChangeText={handleDescriptionChange}
             style={styles.contentText}
             placeholder={'Tab here to continue...'}
             multiline={true}
           />
         </ContentHeaderComponent>
 
-        <ButtonFooterComponent title={'Add to Task'} />
+        <ButtonFooterComponent title={'Add to Task'} onPress={handleAddTodo} />
       </KeyboardAwareScrollView>
     </ScreenContainerComponent>
   );
@@ -259,6 +299,6 @@ const styles = StyleSheet.create({
   // content (description)
   contentText: {
     height: 100,
-    color: ColorStyle.colorGrayDark,
+    color: ColorStyle.colorPrimaryBlack,
   },
 });
