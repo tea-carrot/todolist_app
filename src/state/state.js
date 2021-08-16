@@ -38,4 +38,10 @@ export const initialState = {
       isComplete: false,
     },
   ],
+
+  categories: [
+    {id: 0, emoji: '🍴', title: '식사'},
+    {id: 1, emoji: '🍨', title: '간식'},
+    {id: 2, emoji: '🍙', title: '비상용'},
+  ],
 };

@@ -20,9 +20,8 @@ import {TodoState} from '../../state/state';
 const MainScreen = () => {
   const navigation = useNavigation();
 
-  // const [todos] = useReducer(reducer, initialState.todos);
   const todoState = useContext(TodoState);
-  const [todos, dispatch] = todoState;
+  const [state, dispatch] = todoState;
 
   const [searchText, setSearchText] = useState();
 
@@ -122,7 +121,7 @@ const MainScreen = () => {
             <FlatList
               style={styles.listView}
               contentContainerStyle={styles.listContentContainerStyle}
-              data={todos}
+              data={state.todos}
               horizontal={true}
               renderItem={({item}) => <RenderItem item={item} />}
               showsHorizontalScrollIndicator={false}

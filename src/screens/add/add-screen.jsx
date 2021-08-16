@@ -20,7 +20,7 @@ import {getDateTime} from '../../utils/common';
 
 const AddScreen = () => {
   const todoState = useContext(TodoState);
-  const [todos, dispatch] = todoState;
+  const [state, dispatch] = todoState;
 
   const navigation = useNavigation();
 
@@ -97,9 +97,9 @@ const AddScreen = () => {
   };
 
   // Todo 아이템 추가 버튼
-  const handleAddTodo = () => {
-    const _todo = TodoModel({
-      id: todos.length + 1,
+  const handleAddTodo = async () => {
+    const _todo = await TodoModel({
+      id: state.todos.length + 1,
       emoji: emoji,
       title: title,
       categories: categories,
@@ -109,15 +109,7 @@ const AddScreen = () => {
     });
     dispatch({
       type: 'INSERT_TODO',
-      todo: {
-        id: todos.length + 1,
-        emoji: emoji,
-        title: title,
-        categories: categories,
-        date: date,
-        time: time,
-        description: description,
-      },
+      todo: _todo,
     });
     initState();
     Alert.alert('등록되었습니다.');

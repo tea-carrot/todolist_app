@@ -14,10 +14,13 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [todos, dispatch] = useReducer(reducer, initialState.todos);
+  const [state, dispatch] = useReducer(reducer, {
+    todos: initialState.todos,
+    categories: initialState.categories,
+  });
 
   return (
-    <TodoState.Provider value={[todos, dispatch]}>
+    <TodoState.Provider value={[state, dispatch]}>
       <NavigationContainer>
         <RootNavigator>
           <MainTabNavigator />

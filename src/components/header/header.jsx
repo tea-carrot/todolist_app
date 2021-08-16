@@ -36,7 +36,7 @@ const HeaderComponent = props => {
           />
         )}
       </TouchableOpacity>
-      <Text style={styles.titleStyle}></Text>
+      <Text style={styles.titleStyle}>{title}</Text>
       <TouchableOpacity onPress={rightOnPress}>
         <Image style={styles.iconStyle} source={rightIcon} />
         {rightIconCustom && (
@@ -63,12 +63,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconStyle: {
-    width: 22,
-    height: 15,
-    padding: 10,
+    width: 24,
   },
   titleStyle: {
     flex: 1,
+    fontSize: 17,
     textAlign: 'center',
   },
 });
