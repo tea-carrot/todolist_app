@@ -91,19 +91,15 @@ const CategoryScreen = props => {
           rightIcon={icCalender}
           rightOnPress={handleHeaderRight}
         />
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          <View>
-            <FlatList
-              style={styles.listView}
-              contentContainerStyle={styles.listContentContainerStyle}
-              windowSize={5}
-              data={state.todos}
-              horizontal={false}
-              renderItem={({item}) => <RenderItem item={item} />}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </ScrollView>
+        <FlatList
+          style={styles.listView}
+          contentContainerStyle={styles.listContentContainerStyle}
+          windowSize={5}
+          data={state.todos}
+          horizontal={false}
+          renderItem={({item}) => <RenderItem item={item} />}
+          showsHorizontalScrollIndicator={false}
+        />
       </ScreenContainerComponent>
       <ButtonFloatingActionComponent
         onPress={name => navigation.navigate(name)}
