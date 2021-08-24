@@ -86,6 +86,10 @@ const CategoryScreen = props => {
     const handleDelete = () => {
       dispatch({type: 'DELETE_TODO', id: todo.id});
     };
+    // 상세페이지
+    const handleNavigateDetail = () => {
+      navigation.navigate('Detail', {backNavi: title, todo: todo, id: todo.id});
+    };
 
     return (
       !todo.deleted && (
@@ -118,6 +122,11 @@ const CategoryScreen = props => {
                   size={24}
                   checked={todo.isComplete}
                   onValueChange={handleIsComplate}
+                />
+                <ButtonIconComponent
+                  iconSet={IconVector.arrowNext}
+                  iconSize={24}
+                  onPress={handleNavigateDetail}
                 />
               </View>
             </View>
@@ -238,6 +247,8 @@ const styles = StyleSheet.create({
   itemCheckBox: {
     marginTop: 10,
     marginEnd: 10,
+    marginBottom: 10,
+    justifyContent: 'space-between',
   },
 
   // Slide 하면 나오는 아이템

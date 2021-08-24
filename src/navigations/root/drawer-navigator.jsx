@@ -12,7 +12,9 @@ const RootNavigator = props => {
 
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="MainTab">{() => props.children}</Drawer.Screen>
+      <Drawer.Screen name="MainTab" options={{title: '메인'}}>
+        {() => props.children}
+      </Drawer.Screen>
       <Drawer.Screen name="All">
         {() => <CategoryScreen title={'All'} />}
       </Drawer.Screen>

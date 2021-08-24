@@ -12,6 +12,13 @@ export const reducer = (state, action) => {
             : todo;
         }),
       };
+    case 'UPDATE_TODO':
+      return {
+        ...state,
+        todos: state.todos.map((todo, index) => {
+          return todo.id == action.todo.id ? action.todo : todo;
+        }),
+      };
     case 'DELETE_TODO':
       return {
         ...state,

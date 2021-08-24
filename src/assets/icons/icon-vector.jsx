@@ -7,6 +7,10 @@ export const IconVector = {
     name: 'arrow-back',
     type: 'ionicons',
   },
+  arrowNext: {
+    name: 'arrow-forward-ios',
+    type: 'material-icon',
+  },
 
   // clipboard
   clipboardOff: {
