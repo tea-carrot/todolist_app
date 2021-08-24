@@ -13,5 +13,7 @@ export const TodoModel = item => {
     isComplete: item.isComplete, // 완료 여부
     createdAt: item.createdAt,
     updatedAt: item.createdAt,
+    selected: item.selected ? item.selected : false,
+    deleted: item.deleted ? item.deleted : false,
   };
 };

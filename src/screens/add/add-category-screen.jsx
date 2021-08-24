@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // 이모지 비어있는 뷰 
+  // 이모지 비어있는 뷰
   emojiEmptyView: {
     position: 'absolute',
     alignItems: 'center',

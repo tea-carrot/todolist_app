@@ -4,13 +4,35 @@ export const reducer = (state, action) => {
     case 'INSERT_TODO':
       return {...state, todos: [...state.todos, action.todo]};
     case 'COMPLETE_TODO':
-      // return [...state, action.todo];
       return {
         ...state,
         todos: state.todos.map((todo, index) => {
           return todo.id == action.id
             ? {...todo, isComplete: !todo.isComplete}
             : todo;
+        }),
+      };
+    case 'DELETE_TODO':
+      return {
+        ...state,
+        todos: state.todos.map((todo, index) => {
+          return todo.id == action.id ? {...todo, deleted: true} : todo;
+        }),
+      };
+    case 'SELECTED_SLIDE_LEFT':
+      return {
+        ...state,
+        todos: state.todos.map((todo, index) => {
+          return todo.id == action.id
+            ? {...todo, selected: !todo.selected}
+            : {...todo, selected: false};
+        }),
+      };
+    case 'SELECTED_SLIDE_INIT':
+      return {
+        ...state,
+        todos: state.todos.map((todo, index) => {
+          return {...todo, selected: false};
         }),
       };
 

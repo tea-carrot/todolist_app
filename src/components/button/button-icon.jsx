@@ -4,12 +4,13 @@ import {PaddingStyle} from '../../config/dimens';
 import IconBasicComponent from '../icon/icon-basic';
 
 const ButtonIconComponent = props => {
-  const {iconSet, iconSize, iconColor, onPress, bgColor, bgShape} = props;
+  const {iconSet, iconSize, iconColor, onPress} = props;
+  const {bgShape, bgSize, bgColor} = props;
   return (
     <TouchableOpacity
       style={[
         styles.container,
-        {backgroundColor: bgColor},
+        {backgroundColor: bgColor, width: bgSize, height: bgSize},
         bgShape == 'circle' && styles.circle,
       ]}
       onPress={onPress}>
@@ -27,6 +28,7 @@ export default ButtonIconComponent;
 const styles = StyleSheet.create({
   container: {
     padding: PaddingStyle.padding2,
+    justifyContent: 'center',
   },
 
   // shape

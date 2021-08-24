@@ -27,4 +27,8 @@ export const IconVector = {
     name: 'smile',
     type: 'feather',
   },
+  delete: {
+    name: 'delete-outline',
+    type: 'material-icon',
+  },
 };
