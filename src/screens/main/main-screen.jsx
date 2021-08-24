@@ -15,7 +15,7 @@ import ScreenContainerComponent from '../../components/container/screen-containe
 import HeaderComponent from '../../components/header/header';
 import {ColorStyle} from '../../config/color';
 import {TodoModel} from '../../models/todo.model';
-import {TodoState} from '../../state/state';
+import {TodoState} from '../../store/state';
 
 const MainScreen = () => {
   const navigation = useNavigation();

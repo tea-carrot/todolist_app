@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import AddCategoryScreen from '../../screens/add/add-category-screen';
 import CategoryScreen from '../../screens/category/category-screen';
-import {TodoState} from '../../state/state';
+import {TodoState} from '../../store/state';
 const Drawer = createDrawerNavigator();
 
 const RootNavigator = props => {

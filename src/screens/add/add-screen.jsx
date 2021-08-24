@@ -15,7 +15,7 @@ import {ColorStyle} from '../../config/color';
 import {MarginStyle, PaddingStyle} from '../../config/dimens';
 import {FontSizeStyle} from '../../config/font-size';
 import {TodoModel} from '../../models/todo.model';
-import {TodoState} from '../../state/state';
+import {TodoState} from '../../store/state';
 import {getDateTime} from '../../utils/common';
 
 const AddScreen = () => {

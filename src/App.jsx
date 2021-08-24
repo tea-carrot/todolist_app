@@ -6,8 +6,8 @@ import React, {useReducer} from 'react';
 import {StyleSheet} from 'react-native';
 import MainTabNavigator from './navigations/main/main-tab-navigator';
 import RootNavigator from './navigations/root/drawer-navigator';
-import {reducer} from './state/reducer';
-import {initialState, TodoState} from './state/state';
+import {reducer} from './store/reducer';
+import {initialState, TodoState} from './store/state';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();

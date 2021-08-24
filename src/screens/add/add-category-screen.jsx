@@ -11,7 +11,7 @@ import {ColorStyle} from '../../config/color';
 import {MarginStyle} from '../../config/dimens';
 import {FontSizeStyle} from '../../config/font-size';
 import {CategoryModel} from '../../models/category.model';
-import {TodoState} from '../../state/state';
+import {TodoState} from '../../store/state';
 
 const AddCategoryScreen = () => {
   const todoState = useContext(TodoState);

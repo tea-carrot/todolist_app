@@ -1,14 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useContext, useLayoutEffect, useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import {
+  Animated,
+  Dimensions,
   FlatList,
-  ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import RoundCheckbox from 'rn-round-checkbox';
 import {icCalender, icMenu} from '../../assets/index';
 import {ButtonFloatingActionComponent} from '../../components/button/button-floating';
@@ -16,7 +16,7 @@ import ScreenContainerComponent from '../../components/container/screen-containe
 import HeaderComponent from '../../components/header/header';
 import {ColorStyle} from '../../config/color';
 import {TodoModel} from '../../models/todo.model';
-import {TodoState} from '../../state/state';
+import {TodoState} from '../../store/state';
 
 const CategoryScreen = props => {
   const {title} = props;
@@ -25,8 +25,6 @@ const CategoryScreen = props => {
   const todoState = useContext(TodoState);
   const [state, dispatch] = todoState;
 
-  const [searchText, setSearchText] = useState();
-
   const handleHeaderLeft = () => {
     navigation.openDrawer();
   };
@@ -34,49 +32,70 @@ const CategoryScreen = props => {
     navigation.navigate('Monthly');
   };
 
-  const handleSearchText = value => {
-    console.log('OK:', value);
-    setSearchText(value);
-  };
-
-  const ListHeaderComponent = () => {
-    return (
-      <View style={{marginTop: 30, marginHorizontal: 30}}>
-        <Text style={{fontSize: 31}}>Pending Task</Text>
-      </View>
-    );
-  };
-
   const RenderItem = ({item}) => {
     const todo = TodoModel(item);
+
+    const slideAnim = useRef(new Animated.Value(0)).current;
+    const slideLeft = () => {
+      console.log('Animated');
+      Animated.timing(slideAnim, {
+        toValue: -Dimensions.get('screen').width / 3,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    };
+    const slideInit = () => {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    };
+    const slideStyle = {
+      transform: [
+        {
+          translateX: slideAnim,
+        },
+      ],
+    };
 
     const handleIsComplate = () => {
       dispatch({type: 'COMPLETE_TODO', id: todo.id});
     };
+
     return (
-      <View style={styles.itemContainer} key={todo.id}>
-        <Text style={styles.itemEmojiText}>{todo.emoji}</Text>
-        <View style={styles.itemContent}>
-          <Text style={styles.dateTimeText}>
-            {todo.date} {todo.time}
-          </Text>
-          <Text
-            style={[
-              styles.titleText,
-              todo.isComplete && {textDecorationLine: 'line-through'},
-            ]}>
-            {todo.title}
-          </Text>
-          <Text style={styles.descriptionText}>{todo.description}</Text>
-        </View>
-        <View style={styles.itemCheckBox}>
-          <RoundCheckbox
-            size={24}
-            checked={todo.isComplete}
-            onValueChange={handleIsComplate}
-          />
-        </View>
-      </View>
+      <GestureRecognizer
+        key={todo.id}
+        onSwipeLeft={() => slideLeft()}
+        onSwipeRight={() => slideInit()}
+        config={{
+          velocityThreshold: 0.3,
+          directionalOffsetThreshold: 80,
+        }}>
+        <Animated.View style={[styles.itemContainer, slideStyle]}>
+          <Text style={styles.itemEmojiText}>{todo.emoji}</Text>
+          <View style={styles.itemContent}>
+            <Text style={styles.dateTimeText}>
+              {todo.date} {todo.time}
+            </Text>
+            <Text
+              style={[
+                styles.titleText,
+                todo.isComplete && {textDecorationLine: 'line-through'},
+              ]}>
+              {todo.title}
+            </Text>
+            <Text style={styles.descriptionText}>{todo.description}</Text>
+          </View>
+          <View style={styles.itemCheckBox}>
+            <RoundCheckbox
+              size={24}
+              checked={todo.isComplete}
+              onValueChange={handleIsComplate}
+            />
+          </View>
+        </Animated.View>
+      </GestureRecognizer>
     );
   };
 
