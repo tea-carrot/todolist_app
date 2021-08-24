@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {log} from 'react-native-reanimated';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import RoundCheckbox from 'rn-round-checkbox';
 import {IconVector} from '../../assets/icons/icon-vector';
@@ -156,7 +157,17 @@ const CategoryScreen = props => {
               style={styles.listView}
               contentContainerStyle={styles.listContentContainerStyle}
               windowSize={5}
-              data={state.todos}
+              data={state.todos.filter(todo => {
+                return (
+                  title == 'All' ||
+                  todo.categories
+                    .map(category => {
+                      console.log('title', category.emoji, title);
+                      return category.emoji == title && category;
+                    })
+                    .filter(Boolean).length != 0
+                );
+              })}
               horizontal={false}
               renderItem={({item}) => <RenderItem item={item} />}
               showsHorizontalScrollIndicator={false}
