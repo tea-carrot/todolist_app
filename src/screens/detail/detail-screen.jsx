@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -19,7 +19,7 @@ import {getDateTime} from '../../utils/common';
 
 const DetailScreen = () => {
   const {params} = useRoute();
-  const {backNavi, todo, id} = params;
+  const {todo} = params;
   const todoState = useContext(TodoState);
   const [state, dispatch] = todoState;
   // const todo = TodoModel(state.todos.filter(todo => todo.id == id)[0]);
@@ -37,7 +37,7 @@ const DetailScreen = () => {
   const [categoryDialog, setCategoryDialog] = useState(null);
   const [seletedCategoryItem, setSeletedCategoryItem] = useState(null);
 
-  const [isImportant, setIsImportant] = useState(false);
+  const [isBookmark, setisBookmark] = useState(todo.isBookmark);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -55,7 +55,7 @@ const DetailScreen = () => {
     navigation.goBack();
   };
   const handleHeaderRight = () => {
-    setIsImportant(!isImportant);
+    setisBookmark(!isBookmark);
   };
 
   // handle Info
@@ -105,7 +105,7 @@ const DetailScreen = () => {
         date: date,
         time: time,
         description: description,
-        isImportant: todo.isImportant,
+        isBookmark: todo.isBookmark,
         isComplete: todo.isComplete,
         createdAt: todo.createdAt,
         updatedAt: getDateTime(),
@@ -133,7 +133,7 @@ const DetailScreen = () => {
       <HeaderComponent
         leftIconCustom={IconVector.arrowBack}
         rightIconCustom={
-          !isImportant ? IconVector.clipboardOff : IconVector.clipboardOn
+          !isBookmark ? IconVector.clipboardOff : IconVector.clipboardOn
         }
         leftOnPress={handleHeaderLeft}
         rightOnPress={handleHeaderRight}

@@ -10,6 +10,7 @@ import {ColorStyle} from '../../config/color';
 import AddCategoryScreen from '../../screens/add/add-category-screen';
 import BookmarkScreen from '../../screens/bookmark/bookmark-screen';
 import CategoryScreen from '../../screens/category/category-screen';
+import DetailScreen from '../../screens/detail/detail-screen';
 import DoneScreen from '../../screens/done/done-screen';
 import {TodoState} from '../../store/state';
 const Drawer = createDrawerNavigator();
@@ -164,6 +165,7 @@ const RootNavigator = props => {
       <Drawer.Screen name="BookmarkList" options={{title: 'Bookmark'}}>
         {() => <BookmarkScreen />}
       </Drawer.Screen>
+      <Drawer.Screen name="Detail">{() => <DetailScreen />}</Drawer.Screen>
     </Drawer.Navigator>
   );
 };
