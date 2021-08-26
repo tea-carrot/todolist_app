@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {dummyCategoryList} from '../../dummy/dummy-category';
 import {TodoState} from '../../store/state';
 import ButtonFooterComponent from '../button/buttonFooter';
 import ContentHeaderComponent from '../content/header-content';

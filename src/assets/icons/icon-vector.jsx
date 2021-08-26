@@ -11,6 +11,18 @@ export const IconVector = {
     name: 'arrow-forward-ios',
     type: 'material-icon',
   },
+  checkcircle: {
+    name: 'checkcircle',
+    type: 'ant-design',
+  },
+  favorite: {
+    name: 'favorite',
+    type: 'fontisto',
+  },
+  settings: {
+    name: 'settings-sharp',
+    type: 'ionicon',
+  },
 
   // clipboard
   clipboardOff: {

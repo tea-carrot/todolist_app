@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity} from 'react-native';
+import {ColorStyle} from '../../config/color';
 import {PaddingStyle} from '../../config/dimens';
 import IconBasicComponent from '../icon/icon-basic';
 
@@ -29,6 +30,16 @@ const styles = StyleSheet.create({
   container: {
     padding: PaddingStyle.padding2,
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        shadowColor: ColorStyle.colorGrayBasic,
+        shadowOpacity: 0.8,
+        shadowOffset: {width: 2, height: 2},
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
 
   // shape

@@ -22,7 +22,7 @@ import {TodoModel} from '../../models/todo.model';
 import {TodoState} from '../../store/state';
 
 const CategoryScreen = props => {
-  const {title} = props;
+  const {emoji, title} = props;
   const navigation = useNavigation();
 
   const todoState = useContext(TodoState);
@@ -154,7 +154,7 @@ const CategoryScreen = props => {
       <ScreenContainerComponent>
         {/* Drawer Header */}
         <HeaderComponent
-          title={title}
+          title={`${emoji} ${title}`}
           leftIcon={icMenu}
           leftOnPress={handleHeaderLeft}
           rightIcon={icCalender}
@@ -171,8 +171,8 @@ const CategoryScreen = props => {
                   title == 'All' ||
                   todo.categories
                     .map(category => {
-                      console.log('title', category.emoji, title);
-                      return category.emoji == title && category;
+                      console.log('title', category.emoji, emoji);
+                      return category.emoji == emoji && category;
                     })
                     .filter(Boolean).length != 0
                 );
