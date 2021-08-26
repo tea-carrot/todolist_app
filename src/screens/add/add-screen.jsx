@@ -35,7 +35,7 @@ const AddScreen = () => {
   const [categoryDialog, setCategoryDialog] = useState(null);
   const [seletedCategoryItem, setSeletedCategoryItem] = useState(null);
 
-  const [isImportant, setIsImportant] = useState(false);
+  const [isBookmark, setisBookmark] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -51,7 +51,7 @@ const AddScreen = () => {
     navigation.goBack();
   };
   const handleHeaderRight = () => {
-    setIsImportant(!isImportant);
+    setisBookmark(!isBookmark);
   };
 
   // handle Info
@@ -142,7 +142,7 @@ const AddScreen = () => {
       <HeaderComponent
         leftIconCustom={IconVector.arrowBack}
         rightIconCustom={
-          !isImportant ? IconVector.clipboardOff : IconVector.clipboardOn
+          !isBookmark ? IconVector.clipboardOff : IconVector.clipboardOn
         }
         leftOnPress={handleHeaderLeft}
         rightOnPress={handleHeaderRight}

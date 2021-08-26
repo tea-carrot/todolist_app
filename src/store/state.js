@@ -15,7 +15,7 @@ export const initialState = {
       date: '07-01',
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-      isImportant: false,
+      isBookmark: false,
       isComplete: false,
     },
     {
@@ -26,7 +26,7 @@ export const initialState = {
       date: '07-01',
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-      isImportant: true,
+      isBookmark: true,
       isComplete: true,
     },
     {
@@ -37,7 +37,7 @@ export const initialState = {
       date: '07-01',
       time: '12:00',
       description: '오늘 친구와 만나서 점심 메뉴를 골라야한다.',
-      isImportant: true,
+      isBookmark: true,
       isComplete: false,
     },
   ],

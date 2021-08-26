@@ -27,7 +27,7 @@ const AddCategoryScreen = () => {
     navigation.goBack();
   };
   const handleHeaderRight = () => {
-    setIsImportant(!isImportant);
+    setisBookmark(!isBookmark);
   };
 
   // handle Info

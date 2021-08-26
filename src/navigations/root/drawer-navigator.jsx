@@ -8,7 +8,9 @@ import {IconVector} from '../../assets/icons/icon-vector';
 import ButtonIconComponent from '../../components/button/button-icon';
 import {ColorStyle} from '../../config/color';
 import AddCategoryScreen from '../../screens/add/add-category-screen';
+import BookmarkScreen from '../../screens/bookmark/bookmark-screen';
 import CategoryScreen from '../../screens/category/category-screen';
+import DoneScreen from '../../screens/done/done-screen';
 import {TodoState} from '../../store/state';
 const Drawer = createDrawerNavigator();
 
@@ -104,12 +106,12 @@ const DrawerContentComponent = props => {
       </View>
       <View style={{marginBottom: 30}}>
         <DrawerIconComponent
-          onPress={() => Alert.alert('DoneList')}
+          onPress={() => props.navigation.navigate('DoneList')}
           iconSet={IconVector.checkcircle}
           iconSize={36}
         />
         <DrawerIconComponent
-          onPress={() => Alert.alert('ImportantList')}
+          onPress={() => props.navigation.navigate('BookmarkList')}
           iconSet={IconVector.clipboardOn}
           iconSize={36}
         />
@@ -155,6 +157,12 @@ const RootNavigator = props => {
       })}
       <Drawer.Screen name="AddCategory" options={{title: '+'}}>
         {() => <AddCategoryScreen />}
+      </Drawer.Screen>
+      <Drawer.Screen name="DoneList" options={{title: 'Done'}}>
+        {() => <DoneScreen />}
+      </Drawer.Screen>
+      <Drawer.Screen name="BookmarkList" options={{title: 'Bookmark'}}>
+        {() => <BookmarkScreen />}
       </Drawer.Screen>
     </Drawer.Navigator>
   );
